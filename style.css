@@ -1,0 +1,614 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+
+:root {
+  /* لوحة ألوان من عالم آخر */
+  --bg-dark: #010203;       /* أسود مطلق للفضاء */
+  --bg-panel: #0a0b10;     /* أسود مائل للأزرق العميق للوحات */
+  --neon-blue: #00f2ff;    /* أزرق نيوني ساطع جداً */
+  --neon-purple: #00f2ff;  /* أرجواني نيوني عميق */
+  --text-primary: #ffffff;
+  --text-secondary: #8b9bb4; /* أزرق رمادي باهت */
+  --danger-neon: #ff0055;
+  --success-neon: #00ff88;
+
+  /* إعدادات احترافية للخطوط والحركة */
+  --font-main: "Tajawal", sans-serif;
+  --transition-fast: 0.15s ease-out;
+  --transition-smooth: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 1. إعدادات عامة وتأثير Scanlines */
+* {
+  box-sizing: border-box;
+  cursor: crosshair; /* تغيير المؤشر لشكل متقاطع لجو الخيال العلمي */
+}
+
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* تأثير الخطوط الأفقية المتحركة (Scanlines) فوق كل شيء */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* خلفية النجوم المتحركة (باستخدام تدرجات CSS متعددة) */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  z-index: -1;
+  animation: starsMove 100s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes starsMove {
+  from { background-position: 0 0, 40px 60px, 130px 270px; }
+  to { background-position: 550px 1100px, 400px 760px, 380px 1370px; }
+}
+
+a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
+
+/* 2. شريط التنقل المستقبلية (HUD Style) */
+.navbar {
+  position: sticky; top: 0; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 10%;
+  background: rgba(1, 2, 3, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid var(--neon-blue);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+/* تصميم شعار فضائي */
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo img {
+  width: 40px; height: 40px;
+  border-radius: 5px;
+  border: 2px solid var(--neon-blue);
+  filter: drop-shadow(0 0 5px var(--neon-blue));
+}
+.logo span {
+  color: var(--neon-blue);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+  animation: titlePulse 2s infinite;
+}
+
+/* روابط التنقل نيون */
+.nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+.nav-links a {
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.nav-links a::before {
+  content: '['; position: absolute; left: -5px; opacity: 0; color: var(--neon-purple); transition: var(--transition-fast);
+}
+.nav-links a::after {
+  content: ']'; position: absolute; right: -5px; opacity: 0; color: var(--neon-purple); transition: var(--transition-fast);
+}
+
+.nav-links a:hover { color: var(--neon-blue); text-shadow: 0 0 8px var(--neon-blue); }
+.nav-links a:hover::before, .nav-links a:hover::after { opacity: 1; left: 0; right: 0; }
+
+/* 3. قسم الهيرو: بوابة البعد الآخر */
+.hero {
+  min-height: 80vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 0 10%;
+  position: relative;
+  /* تأثير دوامة فضائية في الخلفية */
+  background: 
+    radial-gradient(circle at center, rgba(0, 242, 255, 0.192) 0%, transparent 60%),
+    linear-gradient(to bottom, rgba(1, 2, 3, 0), var(--bg-dark) 90%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: url('img/bg.jpg') center/cover no-repeat;
+  opacity: 0.1; /* خفض شفافية صورة الخلفية جداً لجعلها غامضة */
+  filter: blur(5px) grayscale(100%);
+  z-index: -1;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.hero-content span {
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-blue));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+  filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.5));
+}
+
+.hero-content p {
+  max-width: 650px;
+  margin: 0 auto 30px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  text-shadow: 0 0 2px rgba(255,255,255,0.5);
+}
+
+/* الأزرار النيونية المستقبلية */
+.btn-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+.btn {
+  padding: 15px 35px;
+  border-radius: 5px; /* حدود زاوية أكثر احترافية */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+/* زر أزرق نيوني ساطع */
+/* تصميم زر "الذهاب إلى البث" الاحترافي */
+.primary-btn {
+    display: inline-block;
+    padding: 14px 40px;
+    background: transparent;
+    color: #00f2ff; /* لون شعارك السماوي */
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-decoration: none;
+    border: 1px solid #00f2ff;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); /* شكل هندسي فضائي */
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+}
+
+.primary-btn:hover {
+    background: #00f2ff;
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/* إضافة تأثير الخط اللامع الذي يمر عبر الزر */
+.primary-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: 0.5s;
+}
+
+.primary-btn:hover::before {
+    left: 100%;
+}
+
+.primary-btn {
+  background: transparent;
+  color: var(--neon-blue);
+  border: 2px solid var(--neon-blue);
+  box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.2), 0 0 10px rgba(0, 242, 255, 0.3);
+}
+
+.primary-btn::before {
+  content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.4), transparent);
+  transition: 0.5s;
+}
+
+.primary-btn:hover {
+  box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.4), 0 0 30px rgba(0, 242, 255, 0.6);
+  text-shadow: 0 0 10px var(--neon-blue);
+}
+.primary-btn:hover::before { left: 100%; }
+
+/* زر أرجواني نيوني "شبح" */
+.ghost-btn {
+  background: transparent;
+  color: var(--neon-purple);
+  border: 2px solid var(--neon-purple);
+  box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.2), 0 0 10px rgba(0, 242, 255, 0.2);
+}
+
+.ghost-btn:hover {
+  background: rgba(0, 242, 255, 0.2);
+  box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.2), 0 0 30px rgba(0, 242, 255, 0.2);
+  text-shadow: 0 0 10px var(--neon-purple);
+}
+
+/* 4. الأقسام العامة وعناوين الـHUD */
+section { padding: 100px 10%; position: relative; }
+
+/* زخرفة زاوية HUD للأقسام */
+section::before {
+  content: ""; position: absolute; top: 20px; right: 10%; width: 50px; height: 50px;
+  border-top: 2px solid var(--neon-purple); border-right: 2px solid var(--neon-purple);
+  opacity: 0.3;
+}
+section::after {
+  content: ""; position: absolute; bottom: 20px; left: 10%; width: 50px; height: 50px;
+  border-bottom: 2px solid var(--neon-blue); border-left: 2px solid var(--neon-blue);
+  opacity: 0.3;
+}
+
+section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--text-primary);
+  position: relative;
+  display: inline-block;
+  left: 50%; transform: translateX(-50%);
+  padding: 0 20px;
+}
+
+/* خطوط زينة حول العنوان */
+section h2::before, section h2::after {
+  content: ""; position: absolute; top: 50%; width: 100px; height: 2px; background: var(--text-secondary); opacity: 0.3;
+}
+section h2::before { right: 100%; }
+section h2::after { left: 100%; }
+
+/* 5. قسم نبذة عني: لوحة معلومات ثلاثية الأبعاد */
+.about { text-align: center; perspective: 1000px; }
+.about p {
+  max-width: 750px;
+  margin: 0 auto;
+  line-height: 2;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  background: rgba(10, 11, 16, 0.5);
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: var(--transition-smooth);
+}
+
+/* تأثير ميلان خفيف عند المرور */
+.about p:hover {
+  transform: rotateX(2deg) translateY(-5px);
+  border-color: rgba(0, 242, 255, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 242, 255, 0.1);
+}
+
+/* 6. قسم البث: محطة القيادة الفضائية */
+.stream-section { text-align: center; }
+
+/* صندوق بث بتصميم HUD مقطوع */
+.stream-box {
+  max-width: 950px;
+  margin: 0 auto;
+  background-color: var(--bg-panel);
+  padding: 40px;
+  position: relative;
+  
+  /* حدود مقطوعة الزوايا (HUD Style) */
+  clip-path: polygon(0 20px, 20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 15px rgba(0, 242, 255, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.stream-box:hover {
+  transform: translateY(-5px) scale(1.01);
+  border-color: rgba(0, 242, 255, 0.6);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 30px rgba(0, 242, 255, 0.3);
+}
+
+/* زخرفة داخلية للصندوق */
+.stream-box::before {
+  content: "SYSTEM_STATUS: OK"; position: absolute; top: 10px; right: 30px;
+  font-size: 0.65rem; color: var(--success-neon); font-family: monospace; opacity: 0.5;
+}
+
+/* شارة الحالة النيونية */
+.status-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 8px 25px;
+  border-radius: 3px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  font-size: 0.85rem;
+  position: relative;
+}
+
+/* شارة أوفلاين نيون */
+.status-pill.offline {
+  background: rgba(255, 0, 85, 0.1);
+  color: var(--danger-neon);
+  border: 1px solid var(--danger-neon);
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}
+.status-pill.offline::before { content: "● "; margin-right: 5px; animation: flicker 3s infinite; }
+
+/* شارة لايف نيون (مع أنيميشن نبض قوي) */
+.status-pill.live {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--success-neon);
+  border: 1px solid var(--success-neon);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+  animation: neonPulseSuccess 1.5s infinite alternate;
+}
+.status-pill.live::before { content: "🛰️ "; margin-right: 5px; }
+
+/* مشغل البث عائم مع ظل عميق */
+.player-wrapper {
+  width: 100%; max-width: 900px; margin: 0 auto 25px;
+  border-radius: 5px; overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;
+  border: 2px solid rgba(255,255,255,0.05);
+  box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 10px 30px rgba(0,0,0,0.8);
+}
+
+/* بلِيسهولدر بتصميم تكنولوجي */
+.stream-placeholder { margin-top: 20px; display: flex; flex-direction: column; align-items: center; }
+.stream-placeholder img {
+  width: 80px; height: 80px; margin-bottom: 15px;
+  filter: drop-shadow(0 0 10px var(--neon-blue)) grayscale(100%);
+  opacity: 0.5;
+  animation: float 4s ease-in-out infinite;
+}
+.stream-placeholder p { color: var(--text-secondary); font-size: 1rem; margin-bottom: 10px; }
+
+/* 7. قسم المجتمع: بوابة الديسكورد النيونية */
+.community { text-align: center; }
+.community p {
+  max-width: 650px; margin: 0 auto 30px;
+  line-height: 1.9; color: var(--text-secondary); font-size: 1.05rem;
+}
+
+/* زر ديسكورد نيون أرجواني ساطع */
+.discord-btn {
+  display: inline-block;
+  padding: 18px 40px;
+  background: transparent;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 2px solid #5865f2; /* لون ديسكورد الأساسي للحدود */
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.2), inset 0 0 10px rgba(0, 242, 255, 0.2);
+  transition: var(--transition-smooth);
+}
+
+.discord-btn::before { content: "💬 "; margin-right: 8px; }
+
+.discord-btn:hover {
+  background: #5865f2;
+  box-shadow: 0 0 40px rgba(88, 101, 242, 0.8), 0 0 10px #fff;
+  transform: translateY(-3px) scale(1.03);
+  text-shadow: 0 0 5px #fff;
+}
+
+/* 8. قسم المعرض: أرشيف البيانات */
+.gallery { text-align: center; }
+
+.section-header {
+  display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;
+}
+.section-header h2 { margin: 0; position: static; transform: none; padding: 0; }
+.section-header h2::before, .section-header h2::after { display: none; }
+
+/* شارة القسم كرمز بيانات */
+.section-tag {
+  font-size: 0.7rem; font-family: monospace;
+  padding: 5px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--neon-purple);
+  color: var(--neon-purple);
+  background: rgba(188, 19, 254, 0.1);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.gallery-text {
+  max-width: 680px; margin: 0 auto 30px;
+  line-height: 1.9; color: var(--text-secondary);
+}
+
+/* كرت فارغ بتصميم لوحة عطل تكنولوجي */
+.gallery-empty-card {
+  max-width: 650px; margin: 0 auto;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: var(--bg-panel);
+  border: 2px dashed rgba(255, 0, 85, 0.3); /* حدود حمراء متقطعة للعطل */
+  color: var(--danger-neon);
+  font-family: monospace;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255, 0, 85, 0.1);
+  animation: glitchBorder 2s infinite;
+}
+
+/* زخرفة "خطأ" الخلفية */
+.gallery-empty-card::before {
+  content: "ERROR_404"; position: absolute; font-size: 5rem; font-weight: 900;
+  color: rgba(255, 0, 85, 0.03); top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* النقاط المتحركة (تحميل البيانات البطيء) */
+.gallery-empty-card .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  display: inline-block; margin: 0 3px;
+  background-color: var(--danger-neon);
+  animation: dot-loading 1.4s infinite ease-in-out both;
+  filter: drop-shadow(0 0 5px var(--danger-neon));
+}
+.dot-red { animation-delay: -0.32s; }
+.dot-yellow { animation-delay: -0.16s; background-color: #facc15; filter: drop-shadow(0 0 5px #facc15); }
+.dot-green { background-color: var(--success-neon); filter: drop-shadow(0 0 5px var(--success-neon)); }
+
+.gallery-empty-card p { margin: 15px 0 0; font-size: 0.9rem; letter-spacing: 1px; }
+
+/* 9. تأثيرات الظهور فائقة السلاسة (Scroll Reveal) */
+.reveal {
+  opacity: 0;
+  transform: translateY(80px) scale(0.95);
+  transition: opacity 0.8s ease-out, transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, opacity;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* نبض الرادار للسماوي */
+.status-pill.live {
+    background: rgba(0, 242, 255, 0.15) !important;
+    border: 1px solid #00f2ff !important;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+    animation: radar-pulse 2s infinite;
+}
+
+@keyframes radar-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; transform: scale(1.05); }
+    100% { opacity: 1; }
+}
+
+.player-wrapper {
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 1);
+}
+
+/* 10. الفوتر: تذييل المحطة */
+footer {
+  text-align: center;
+  padding: 40px 10%;
+  border-top: 2px solid var(--bg-panel);
+  background-color: var(--bg-dark);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+footer::before {
+  content: ""; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  width: 150px; height: 2px; background: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue);
+}
+
+/* --- مجموعة الأنيميشنز الشاملة --- */
+
+/* لمعان النص span */
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+
+/* نبض العنوان سبان */
+@keyframes titlePulse {
+  0%, 100% { text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue); opacity: 1; }
+  50% { text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue); opacity: 0.8; }
+}
+
+/* وميض الحالة أوفلاين */
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 24%, 55% { opacity: 0; }
+}
+
+/* نبض نيون أخضر لللايف */
+@keyframes neonPulseSuccess {
+  from { box-shadow: 0 0 10px rgba(0, 255, 136, 0.3), inset 0 0 5px rgba(0, 255, 136, 0.1); }
+  to { box-shadow: 0 0 20px rgba(0, 255, 136, 0.6), inset 0 0 10px rgba(0, 255, 136, 0.3); }
+}
+
+/* طفو الأيقونات */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* تحميل النقاط */
+@keyframes dot-loading {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* جليتش للحدود الحمراء للكرت الفارغ */
+@keyframes glitchBorder {
+  0%, 100% { border-color: rgba(255, 0, 85, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+  50% { border-color: rgba(255, 0, 85, 0.6); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 10px rgba(255, 0, 85, 0.2); }
+  51% { border-color: rgba(255, 0, 85, 0.1); }
+  52% { border-color: rgba(255, 0, 85, 0.6); }
+}
+
+/* 11. استجابة الجوال المتقدمة */
+@media (max-width: 768px) {
+  .navbar { padding: 10px 5%; border-bottom-width: 1px; }
+  .logo span { font-size: 1rem; letter-spacing: 1px; }
+  .nav-links { gap: 15px; font-size: 0.8rem; }
+  
+  .hero { min-height: 60vh; padding: 0 5%; }
+  .hero-content h1 { font-size: 2rem; }
+  .btn-group { flex-direction: column; gap: 10px; width: 100%; max-width: 300px; margin: 0 auto; }
+  .btn { width: 100%; padding: 12px; font-size: 0.85rem; letter-spacing: 1px; }
+
+  section { padding: 60px 5%; }
+  section h2 { font-size: 1.6rem; letter-spacing: 2px; }
+  section h2::before, section h2::after { width: 50px; }
+
+  .about p { padding: 20px; font-size: 0.95rem; }
+
+  .stream-box { padding: 25px 15px; clip-path: polygon(0 10px, 10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%); }
+  .status-pill { padding: 6px 15px; font-size: 0.75rem; letter-spacing: 1px; }
+  .stream-placeholder img { width: 60px; height: 60px; }
+
+  .gallery-empty-card { padding: 20px; border-width: 1px; }
+  .gallery-empty-card::before { font-size: 3rem; }
+}

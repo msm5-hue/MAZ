@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>MAZN1115 | البث المباشر</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- شريط التنقل -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="img/logo.png" alt="MAZN1115 Logo" />
+      <span>MAZN1115</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#hero">الرئيسية</a></li>
+      <li><a href="#about">نبذة عني</a></li>
+      <li><a href="#stream">البث</a></li>
+      <li><a href="#community">المجتمع</a></li>
+      <li><a href="#highlights">لقطات</a></li>
+    </ul>
+  </nav>
+
+  <!-- الهيرو -->
+  <header id="hero" class="hero">
+    <div class="hero-content reveal">
+      <h1>
+        مرحباً بكم في <span>MAZN1115</span>
+      </h1>
+      <p>
+        تابع البثوث المباشرة، التحديات، وأجواء اللعب الحماسية على منصة Kick مع MAZN1115.
+      </p>
+      <a href="https://kick.com/mazn1115" target="_blank" class="btn primary-btn">
+        مشاهدة القناة على Kick
+      </a>
+    </div>
+  </header>
+<div class="stream-box reveal">
+    <div id="liveStatus" class="status-pill offline">جاري فحص الإشارة...</div>
+    
+    <div class="player-wrapper" id="streamPlayerContainer" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; border-radius: 8px;">
+        </div>
+
+<div class="stream-info" style="text-align: center; margin-top: 25px;">
+    <img src="Logo mazz.png" alt="MAZZ" style="width: 60px; height: 60px; margin-bottom: 15px; filter: drop-shadow(0 0 10px #00f2ff);">
+    
+    <p style="color: #8ba2ad; font-size: 0.9rem; margin-bottom: 20px;">
+        انضم إلى الرحلة الآن عبر منصة Kick
+    </p>
+
+    <a href="https://kick.com/mazn1115" target="_blank" class="primary-btn">
+        دخول بوابة البث
+    </a>
+</div>
+</div>
+  <!-- نبذة عني -->
+  <section id="about" class="about reveal">
+    <h2>نبذة عني</h2>
+    <p>
+      أنا MAZN1115، ستريمر على منصة Kick 🎮 أحب الألعاب، التحديات، والتفاعل المباشر مع المتابعين.
+      هدفي أقدم محتوى ممتع، عفوي، وتجمعنا فيه أحلى اللحظات على البثوث.
+    </p>
+  </section>
+
+  <!-- البث المباشر -->
+  <section id="stream" class="stream-section reveal">
+    <h2>البث المباشر</h2>
+
+    <div class="stream-box">
+      <div id="liveStatus" class="status-pill offline">
+        🔴 البث مقفل حالياً
+      </div>
+
+      <!-- مشغل البث من Kick (يظهر فقط إذا كان لايف) -->
+      <div class="player-wrapper">
+        <iframe
+          id="streamPlayer"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          allowfullscreen
+          allow="autoplay; encrypted-media; picture-in-picture"
+          style="display:none;"
+        ></iframe>
+      </div>
+
+      <!-- بلِيسهولدر -->
+      <div class="stream-placeholder">
+        <img src="img/logo.png" alt="MAZN1115" />
+        <p>اضغط على الزر للانتقال إلى صفحة البث على Kick.</p>
+        <a href="https://kick.com/mazn1115" target="_blank" class="btn ghost-btn">
+          الذهاب إلى البث
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- المجتمع -->
+  <section id="community" class="community reveal">
+    <h2>المجتمع</h2>
+    <p>
+      انضم إلى مجتمعنا في Discord، وشاركنا اقتراحاتك، لقطاتك، وأفكارك للبثوث القادمة،
+      وكن جزء من العائلة.
+    </p>
+    <a href="https://discord.gg/x9frRDzmbZ" target="_blank" class="discord-btn">
+      دخول سيرفر الديسكورد
+    </a>
+  </section>
+
+  <!-- لقطات من البثوث (قريبًا) -->
+  <section class="gallery reveal" id="highlights">
+    <div class="section-header">
+      <h2>لقطات من البثوث</h2>
+      <span class="section-tag">قريبًا</span>
+    </div>
+
+    <p class="gallery-text">
+      قريبًا بإذن الله راح نضيف هنا أفضل اللقطات والمقاطع المميزة من بثوث MAZN1115.
+      تابعنا على Kick عشان تكون جزء من اللحظات الأسطورية القادمة!
+    </p>
+
+    <div class="gallery-empty-card">
+      <div>
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <p>ما في لقطات الآن، لكن التجهيز شغّال 👀</p>
+    </div>
+  </section>
+
+  <!-- الفوتر -->
+  <footer>
+    <p>© 2026 MAZN1115 - جميع الحقوق محفوظة</p>
+  </footer>
+
+  <!-- سكربت سلس لحالة البث + الأنيميشن -->
+  <script>
+    const CHANNEL = "mazn1115";
+    const API_URL = `https://kick.com/api/v2/channels/${CHANNEL}`;
+    const PLAYER_URL = `https://player.kick.com/${CHANNEL}`;
+
+    const statusEl = document.getElementById("liveStatus");
+    const playerEl = document.getElementById("streamPlayer");
+
+    // reveal سموووث
+    function revealOnScroll() {
+      const elements = document.querySelectorAll(".reveal");
+      const windowHeight = window.innerHeight;
+
+      elements.forEach((el) => {
+        const elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) {
+          el.classList.add("active");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    async function checkStream() {
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        if (data.livestream) {
+          setLiveUI(true);
+        } else {
+          setLiveUI(false);
+        }
+      } catch (err) {
+        console.error("خطأ في جلب حالة البث:", err);
+        setLiveUI(false, true);
+      }
+    }
+
+    function setLiveUI(isLive, isError = false) {
+      if (isLive) {
+        statusEl.innerHTML = "🟢 البث مباشر الآن";
+        statusEl.classList.remove("offline");
+        statusEl.classList.add("live");
+
+        playerEl.style.display = "block";
+        if (!playerEl.src) playerEl.src = PLAYER_URL;
+      } else {
+        statusEl.innerHTML = isError
+          ? "⚠️ تعذر جلب حالة البث"
+          : "🔴 البث مقفل حالياً";
+
+        statusEl.classList.remove("live");
+        statusEl.classList.add("offline");
+
+        playerEl.style.display = "none";
+        playerEl.src = "";
+      }
+    }
+
+    checkStream();
+    setInterval(checkStream, 60000);
+  </script>
+</body>
+</html>
